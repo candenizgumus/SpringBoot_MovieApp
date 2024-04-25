@@ -5,9 +5,9 @@ import com.candenizgumus.services.KullaniciService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import static com.candenizgumus.constants.EndPoints.*;
 @RestController
-@RequestMapping("/kullanici")
+@RequestMapping(KULLANICI)
 @RequiredArgsConstructor
 public class KullaniciController
 {
