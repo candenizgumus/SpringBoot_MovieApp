@@ -23,5 +23,6 @@ public class Genre
     @ManyToMany
     List<Movie> movie;
     @ManyToMany
-    List<Genre> genre;
+    List<Kullanici> kullanici;
+
 }

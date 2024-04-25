@@ -31,7 +31,7 @@ public class Kullanici
     String password;
     @ManyToMany (mappedBy = "kullanici")
     List<Movie> favmovie;
-    @ManyToMany (mappedBy = "genre")
+    @ManyToMany (mappedBy = "kullanici")
     List<Genre> favgenre;
 
 }
