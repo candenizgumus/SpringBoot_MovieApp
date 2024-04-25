@@ -27,3 +27,9 @@
 ### User içinde favGenre: favMovies ile aynı mantıkta olabilir.
 
 ### User içinde kendi yaptığı yorumlara da erişmek istenebilir.
+
+
+## Soru 3. https://api.tvmaze.com/shows apisine istek atarak gelen verileri bizde bulunan movie entity'si türüne çevirerek vt'ye kaydetmeliyiz.
+Bu apiye istek atarken herhangi bir metod kullanabilirsiniz. HttpUrlConnection
+Gson kullanarak dönüşüm yaptırabilirsiniz.
+Bu DataImpl sınıfı spring projesi ayağa kalkarken yüklenmeli ve içindeki metodu tetiklemelidir.

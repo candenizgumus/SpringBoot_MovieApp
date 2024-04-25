@@ -13,25 +13,26 @@ import java.util.List;
 @Builder
 @Data
 @Entity
-@Table(name = "tblkullanici")
-public class Kullanici
-{
+@Table(name = "tbluser")
+public class Kullanici {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Column(length = 50)
-    String name;
+    private String name;
     @Column(length = 50)
-    String surname;
+    private String surname;
     @Column(length = 50)
-    String email;
-    @Column(length = 15)
-    String phone;
-    @Column(length = 32)
-    String password;
-    @ManyToMany (mappedBy = "kullanici", cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
-    List<Movie> favmovie;
-    @ManyToMany (mappedBy = "kullanici" , cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
-    List<Genre> favgenre;
+    private String email;
+    @Column(length = 50)
+    private String phone;
+    @Column(length = 50)
+    private String password;
 
+    @ManyToMany(mappedBy = "kullanici",cascade = CascadeType.ALL)
+    private List<Movie> favmovie;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Genre> favgenre;
+    @OneToMany(mappedBy = "kullanici",cascade = CascadeType.ALL)
+    private List<MovieComment> comment;
 }

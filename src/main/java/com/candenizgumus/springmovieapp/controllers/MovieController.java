@@ -1,6 +1,7 @@
 package com.candenizgumus.springmovieapp.controllers;
 
 import com.candenizgumus.springmovieapp.dto.request.MovieSaveDto;
+import com.candenizgumus.springmovieapp.dto.response.MovieFindAllDto;
 import com.candenizgumus.springmovieapp.entities.Genre;
 import com.candenizgumus.springmovieapp.entities.Movie;
 import com.candenizgumus.springmovieapp.services.KullaniciService;
@@ -21,19 +22,20 @@ public class MovieController
     private final MovieService movieService;
 
 
-
     @PostMapping(EndPoints.SAVEDTO)
     @CrossOrigin("*")
     public ResponseEntity<Movie> saveDto(@RequestBody MovieSaveDto dto)
     {
-        return ResponseEntity.ok( movieService.saveDto(dto));
+        return ResponseEntity.ok(movieService.saveDto(dto));
     }
+
     @PostMapping(EndPoints.SAVE)
     @CrossOrigin("*")
     public ResponseEntity<Movie> save(@RequestBody Movie movie)
     {
-        return ResponseEntity.ok( movieService.save(movie));
+        return ResponseEntity.ok(movieService.save(movie));
     }
+
     @GetMapping(EndPoints.FINDALL)
     @CrossOrigin("*")
     public ResponseEntity<List<Movie>> findAll()
@@ -41,10 +43,16 @@ public class MovieController
         return ResponseEntity.ok(movieService.findAll());
     }
 
-    @PutMapping("/turekle")
+    @GetMapping("moviefindalldto")
     @CrossOrigin("*")
-    public ResponseEntity<Movie> turEkle(Long genreId , Long filmId)
+    public ResponseEntity<List<MovieFindAllDto>> findAllDto()
     {
-        return ResponseEntity.ok(movieService.turEkle(genreId,filmId));
+        return ResponseEntity.ok(movieService.findAllDto());
+    }
+
+    @PutMapping("/turekle")
+    public ResponseEntity<Movie> turEkle(Long genreId, Long filmId)
+    {
+        return ResponseEntity.ok(movieService.turEkle(genreId, filmId));
     }
 }

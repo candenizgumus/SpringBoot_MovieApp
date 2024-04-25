@@ -2,6 +2,7 @@ package com.candenizgumus.springmovieapp.services;
 
 import com.candenizgumus.springmovieapp.dto.request.MovieCommentSaveDto;
 import com.candenizgumus.springmovieapp.dto.request.MovieSaveDto;
+import com.candenizgumus.springmovieapp.dto.response.MovieFindAllDto;
 import com.candenizgumus.springmovieapp.entities.Genre;
 import com.candenizgumus.springmovieapp.entities.Kullanici;
 import com.candenizgumus.springmovieapp.entities.Movie;
@@ -11,6 +12,7 @@ import com.candenizgumus.springmovieapp.repositories.MovieRepository;
 import com.candenizgumus.springmovieapp.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,12 +36,12 @@ public class MovieService extends ServiceManager<Movie,Long>
     @Override
     public Movie save(Movie movie)
     {
-        Optional<Kullanici> eklenecekKullanici = kullaniciService.findById(movie.getKullanici().getFirst().getId());
+      /*  Optional<Kullanici> eklenecekKullanici = kullaniciService.findById(movie.getKullanici().getFirst().getId());
         Optional<MovieComment> eklenecekMovieComment = movieCommentService.findById(movie.getMoviecomment().getFirst().getId());
         Optional<Genre> eklenecekGenre = genreService.findById(movie.getGenre().getFirst().getId());
         movie.getKullanici().add(eklenecekKullanici.get());
         movie.getMoviecomment().add(eklenecekMovieComment.get());
-        movie.getGenre().add(eklenecekGenre.get());
+        movie.getGenre().add(eklenecekGenre.get());*/
         return super.save(movie);
     }
 
@@ -52,8 +54,21 @@ public class MovieService extends ServiceManager<Movie,Long>
     {
         Optional<Movie> updateEdilecekFilm = findById(filmId);
         Optional<Genre> eklenecekGenre = genreService.findById(genreId);
-        updateEdilecekFilm.get().getGenre().add(eklenecekGenre.get());
+        List<Genre> varOlanList = updateEdilecekFilm.get().getGenre();
+        varOlanList.add(eklenecekGenre.get());
+        updateEdilecekFilm.get().setGenre(varOlanList);
 
         return movieRepository.save(updateEdilecekFilm.get());
+    }
+
+    public List<MovieFindAllDto> findAllDto()
+    {
+        List<Movie> movies = movieRepository.findAll();
+        List<MovieFindAllDto> movieFindAllDtoList = new ArrayList<>();
+        for (Movie movie : movies)
+        {
+           movieFindAllDtoList.add( MovieMapper.INSTANCE.movieFindAllDtoToMovie(movie));
+        }
+        return movieFindAllDtoList;
     }
 }

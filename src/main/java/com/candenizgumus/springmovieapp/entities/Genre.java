@@ -18,11 +18,8 @@ public class Genre
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
-    @ManyToMany
-    List<Movie> movie;
-    @ManyToMany
-    List<Kullanici> kullanici;
-
+    private Long id;
+    private String name;
+    @ManyToMany(mappedBy = "genre")
+    private List<Movie> movies;
 }

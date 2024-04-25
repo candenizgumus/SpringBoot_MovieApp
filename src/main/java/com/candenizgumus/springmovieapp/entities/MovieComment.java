@@ -15,17 +15,16 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "tblmoviecomment")
-public class MovieComment
-{
+public class MovieComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    @Column(length = 500)
-    String yorum;
-    LocalDate yorumtarihi;
+    private Long id;
+    @Column(length = 2048)
+    private String content;
+    @Builder.Default
+    private LocalDate date=LocalDate.now();
     @ManyToOne
-    Movie movie;
+    private Movie movie;
     @ManyToOne
-    Kullanici kullanici;
-
+    private Kullanici kullanici;
 }

@@ -15,25 +15,23 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "tblmovie")
-public class Movie
-{
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    @ManyToMany(mappedBy = "movie", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    List<Genre> genre;
-    String language;
-    String image;
-    String name;
-    String country;
-    Integer rating;
-    @Column(length = 2052)
-    String summary;
-    LocalDate premired;
-    String url;
-    @OneToMany(mappedBy = "movie" , cascade = CascadeType.PERSIST , fetch = FetchType.EAGER )
-    List<MovieComment> moviecomment;
+    private Long id;
+    private String language;
+    private String image;
+    private String name;
+    private String country;
+    private double rating;
+    @Column(length = 2048)
+    private String summary;
+    private LocalDate premiered;
+    private String url;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Genre> genre;
+    @OneToMany(mappedBy ="movie",cascade = CascadeType.ALL)
+    private List<MovieComment> comment;
     @ManyToMany
-    List<Kullanici> kullanici;
-
+    private List<Kullanici> kullanici;
 }

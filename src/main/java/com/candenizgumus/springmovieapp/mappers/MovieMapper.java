@@ -2,6 +2,7 @@ package com.candenizgumus.springmovieapp.mappers;
 
 
 import com.candenizgumus.springmovieapp.dto.request.MovieSaveDto;
+import com.candenizgumus.springmovieapp.dto.response.MovieFindAllDto;
 import com.candenizgumus.springmovieapp.entities.Movie;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -13,6 +14,8 @@ public interface MovieMapper
     MovieMapper INSTANCE = Mappers.getMapper( MovieMapper.class );
 
     Movie movieSaveDtoToMovie(MovieSaveDto dto);
+
+    MovieFindAllDto movieFindAllDtoToMovie(Movie movie);
 
 
 

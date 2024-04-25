@@ -22,7 +22,7 @@ public class GlobalExceptionHandler
 
 
     @ExceptionHandler(RuntimeException.class) // Hata yakalayici bir metod olduğunu belirtmek için.
-    public ResponseEntity<String> handleException(){
-       return ResponseEntity.badRequest().body("Uygulamada Runtime Exception olustu................");
+    public ResponseEntity<String> handleException(RuntimeException ex){
+       return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }
