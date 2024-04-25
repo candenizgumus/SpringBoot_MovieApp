@@ -29,9 +29,9 @@ public class Kullanici
     String phone;
     @Column(length = 32)
     String password;
-    @ManyToMany (mappedBy = "kullanici")
+    @ManyToMany (mappedBy = "kullanici", cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
     List<Movie> favmovie;
-    @ManyToMany (mappedBy = "kullanici")
+    @ManyToMany (mappedBy = "kullanici" , cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
     List<Genre> favgenre;
 
 }

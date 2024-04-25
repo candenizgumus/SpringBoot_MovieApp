@@ -1,6 +1,10 @@
 package com.candenizgumus.springmovieapp.mappers;
 
 
+import com.candenizgumus.springmovieapp.dto.request.GenreSaveDto;
+import com.candenizgumus.springmovieapp.dto.request.KullaniciSaveDto;
+import com.candenizgumus.springmovieapp.entities.Genre;
+import com.candenizgumus.springmovieapp.entities.Kullanici;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
@@ -10,7 +14,7 @@ public interface KullaniciMapper
 {
     KullaniciMapper INSTANCE = Mappers.getMapper( KullaniciMapper.class );
 
-
+    Kullanici kullaniciSaveDtoToKullanici(KullaniciSaveDto dto);
 
 
 }

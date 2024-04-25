@@ -20,7 +20,7 @@ public class Movie
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @ManyToMany(mappedBy = "movie")
+    @ManyToMany(mappedBy = "movie", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     List<Genre> genre;
     String language;
     String image;
@@ -31,7 +31,7 @@ public class Movie
     String summary;
     LocalDate premired;
     String url;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie" , cascade = CascadeType.PERSIST , fetch = FetchType.EAGER )
     List<MovieComment> moviecomment;
     @ManyToMany
     List<Kullanici> kullanici;

@@ -28,5 +28,4 @@ public class MovieComment
     @ManyToOne
     Kullanici kullanici;
 
-
 }
