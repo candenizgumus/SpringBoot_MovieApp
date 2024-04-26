@@ -14,7 +14,8 @@ import java.util.StringJoiner;
 @Data
 @Entity
 @Table(name = "tblmovie")
-public class Movie {
+public class Movie
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,15 +29,14 @@ public class Movie {
     private LocalDate premiered;
     private String url;
     @ManyToMany()
-   // @JsonIgnore
+    @JsonIgnore
     private List<Genre> genre;
-    @OneToMany(mappedBy ="movie")
-   // @JsonIgnore
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
     private List<MovieComment> comment;
     @ManyToMany(mappedBy = "favmovie")
-   // @JsonIgnore
+    @JsonIgnore
     private List<Kullanici> kullanici;
-
 
 
 }

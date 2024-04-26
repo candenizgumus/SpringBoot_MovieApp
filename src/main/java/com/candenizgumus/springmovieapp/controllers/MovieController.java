@@ -57,4 +57,11 @@ public class MovieController
     {
         return ResponseEntity.ok(movieService.turEkle(genreId, filmId));
     }
+
+    @GetMapping("/findAllByRatingGreaterThan")
+    @CrossOrigin("*")
+    public ResponseEntity<List<Movie>> findAllDto(double value)
+    {
+        return ResponseEntity.ok(movieService.findAllByRatingGreaterThan(value));
+    }
 }

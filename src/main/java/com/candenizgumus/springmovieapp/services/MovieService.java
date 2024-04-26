@@ -3,6 +3,7 @@ package com.candenizgumus.springmovieapp.services;
 import com.candenizgumus.springmovieapp.dto.request.MovieSaveDto;
 import com.candenizgumus.springmovieapp.dto.response.MovieFindAllDto;
 import com.candenizgumus.springmovieapp.entities.Genre;
+import com.candenizgumus.springmovieapp.entities.Kullanici;
 import com.candenizgumus.springmovieapp.entities.Movie;
 import com.candenizgumus.springmovieapp.exceptions.MovieAppException;
 import com.candenizgumus.springmovieapp.exceptions.ErrorType;
@@ -10,6 +11,7 @@ import com.candenizgumus.springmovieapp.mappers.MovieMapper;
 import com.candenizgumus.springmovieapp.repositories.MovieRepository;
 import com.candenizgumus.springmovieapp.utility.ServiceManager;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,15 @@ public class MovieService extends ServiceManager<Movie,Long>
     public List<Movie> findAllById(List<Long> ids){
       return   ids.stream().map(id-> findById(id).orElseThrow(()->new MovieAppException(ErrorType.MOVIE_NOT_FOUND))).collect(Collectors.toList());
 
+    }
+
+    public List<Movie> findAllByRatingGreaterThan(double value){
+        return   movieRepository.findAllByRatingGreaterThan(value);
+
+    }
+
+    public List<Movie> finddeneme(Kullanici kullanici){
+        findById(kullanici.getId()); //TODO SONRA BAKILACAK
     }
 
 }
