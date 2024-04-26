@@ -1,5 +1,6 @@
 package com.candenizgumus.springmovieapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +31,12 @@ public class Kullanici {
     private String password;
 
     @ManyToMany()
+    @JsonIgnore
     private List<Movie> favmovie;
     @ManyToMany()
+    @JsonIgnore
     private List<Genre> favgenre;
+    @JsonIgnore
     @OneToMany(mappedBy = "kullanici",cascade = CascadeType.PERSIST)
     private List<MovieComment> comment;
 }

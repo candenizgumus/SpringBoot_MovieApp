@@ -9,5 +9,6 @@ import java.util.List;
 
 public record MovieFindAllDto(Long id, String language, String image, String name, String country, double rating, String summary, LocalDate premiered, String url,List<GenreFindAllDto> genre )
 {
-    //, List<Genre> genre, List<MovieComment> comment, List<Kullanici> kullanici //içinden silinenler
+    // List<MovieComment> comment, List<Kullanici> kullanici //içinden silinenler
+
 }

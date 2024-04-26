@@ -35,4 +35,30 @@ public class KullaniciController
     {
         return ResponseEntity.ok(kullaniciService.findAll());
     }
+
+
+    @GetMapping("/findallbyname")
+    public ResponseEntity<List<Kullanici>> findAllByName(String ad){
+        return ResponseEntity.ok(kullaniciService.findAllByNameIgnoreCase(ad));
+    }
+
+    @GetMapping("/findemailbycontaining")
+    public ResponseEntity<List<Kullanici>> findAllByEmailContaining(String metin){
+        return ResponseEntity.ok(kullaniciService.findAllByEmailContaining(metin));
+    }
+
+    @GetMapping("/findemailendswith")
+    public ResponseEntity<List<Kullanici>> findAllByEmailEndingWith(String metin){
+        return ResponseEntity.ok(kullaniciService.findAllByEmailEndingWith(metin));
+    }
+
+    @GetMapping("/isemailandpasswordcorrectofkullanici")
+    public ResponseEntity<Boolean> findAllByEmailEndingWith(String email,String password){
+        return ResponseEntity.ok(kullaniciService.findByEmailAndPasswordIsTrue(email,password));
+    }
+
+    @GetMapping("/findkullanicibylengthofpassword")
+    public ResponseEntity<List<Kullanici>> findKullaniciByLengthOfPassword(int uzunluk){
+        return ResponseEntity.ok(kullaniciService.findKullaniciByLengthOfPassword(uzunluk));
+    }
 }
