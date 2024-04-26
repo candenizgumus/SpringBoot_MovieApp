@@ -1,6 +1,9 @@
 package com.candenizgumus.springmovieapp.controllers;
 
+import com.candenizgumus.springmovieapp.dto.request.KullaniciLoginDto;
+import com.candenizgumus.springmovieapp.dto.request.KullaniciRegisterDto;
 import com.candenizgumus.springmovieapp.dto.request.KullaniciSaveDto;
+import com.candenizgumus.springmovieapp.dto.response.KullaniciRegisterResponseDto;
 import com.candenizgumus.springmovieapp.entities.Kullanici;
 import com.candenizgumus.springmovieapp.services.KullaniciService;
 import com.candenizgumus.springmovieapp.constants.EndPoints;
@@ -38,8 +41,8 @@ public class KullaniciController
 
 
     @GetMapping("/findallbyname")
-    public ResponseEntity<List<Kullanici>> findAllByName(String ad){
-        return ResponseEntity.ok(kullaniciService.findAllByNameIgnoreCase(ad));
+    public ResponseEntity<List<Kullanici>> findAllByOrderByName(){
+        return ResponseEntity.ok(kullaniciService.findAllByOrderByName());
     }
 
     @GetMapping("/findemailbycontaining")
@@ -60,5 +63,15 @@ public class KullaniciController
     @GetMapping("/findkullanicibylengthofpassword")
     public ResponseEntity<List<Kullanici>> findKullaniciByLengthOfPassword(int uzunluk){
         return ResponseEntity.ok(kullaniciService.findKullaniciByLengthOfPassword(uzunluk));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<KullaniciRegisterResponseDto> register(KullaniciRegisterDto dto){
+       return ResponseEntity.ok(kullaniciService.register(dto));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Long> login(KullaniciLoginDto dto){
+        return ResponseEntity.ok(kullaniciService.login(dto));
     }
 }

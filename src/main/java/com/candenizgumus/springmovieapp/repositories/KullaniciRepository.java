@@ -13,7 +13,7 @@ public interface KullaniciRepository extends JpaRepository<Kullanici,Long>
 {
 
     //Dışarıdan girilen değer hangi kullanıcıların isimlerinde mevcuttur.
-    List<Kullanici> findAllByNameIgnoreCase(String ad);
+    List<Kullanici> findAllByOrderByName();
 
     //Emaillerini içinde belirlediğimiz değer geçen kullanıcılar
     List<Kullanici> findAllByEmailContaining(String metin);
