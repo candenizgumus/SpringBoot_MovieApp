@@ -3,6 +3,7 @@ package com.candenizgumus.springmovieapp.controllers;
 import com.candenizgumus.springmovieapp.dto.request.KullaniciLoginDto;
 import com.candenizgumus.springmovieapp.dto.request.KullaniciRegisterDto;
 import com.candenizgumus.springmovieapp.dto.request.KullaniciSaveDto;
+import com.candenizgumus.springmovieapp.dto.response.KullaniciLoginResponseDto;
 import com.candenizgumus.springmovieapp.dto.response.KullaniciRegisterResponseDto;
 import com.candenizgumus.springmovieapp.entities.Kullanici;
 import com.candenizgumus.springmovieapp.services.KullaniciService;
@@ -71,7 +72,7 @@ public class KullaniciController
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Long> login(KullaniciLoginDto dto){
+    public ResponseEntity<KullaniciLoginResponseDto> login(KullaniciLoginDto dto){
         return ResponseEntity.ok(kullaniciService.login(dto));
     }
 }

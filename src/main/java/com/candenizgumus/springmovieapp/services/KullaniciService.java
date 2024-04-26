@@ -3,6 +3,7 @@ package com.candenizgumus.springmovieapp.services;
 import com.candenizgumus.springmovieapp.dto.request.KullaniciLoginDto;
 import com.candenizgumus.springmovieapp.dto.request.KullaniciRegisterDto;
 import com.candenizgumus.springmovieapp.dto.request.KullaniciSaveDto;
+import com.candenizgumus.springmovieapp.dto.response.KullaniciLoginResponseDto;
 import com.candenizgumus.springmovieapp.dto.response.KullaniciRegisterResponseDto;
 import com.candenizgumus.springmovieapp.entities.Kullanici;
 import com.candenizgumus.springmovieapp.exceptions.ErrorType;
@@ -74,7 +75,7 @@ public class KullaniciService extends ServiceManager<Kullanici,Long>
         return KullaniciMapper.INSTANCE.kullaniciToResponseDto(kaydedilenKullanici);
     }
 
-    public Long login(KullaniciLoginDto dto)
+    public KullaniciLoginResponseDto login(KullaniciLoginDto dto)
     {
         Optional<Kullanici> kullanici = kullaniciRepository.findByEmailAndPassword(dto.email(), dto.password());
         if (kullanici.isEmpty())
@@ -82,6 +83,6 @@ public class KullaniciService extends ServiceManager<Kullanici,Long>
             throw new MovieAppException(ErrorType.KULLANICI_NOT_FOUND);
         }
 
-        return kullanici.get().getId();
+        return KullaniciMapper.INSTANCE.kullaniciToResponseid(kullanici.get());
     }
 }
