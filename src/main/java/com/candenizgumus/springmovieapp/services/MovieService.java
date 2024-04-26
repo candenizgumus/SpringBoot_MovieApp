@@ -9,9 +9,13 @@ import com.candenizgumus.springmovieapp.entities.Movie;
 import com.candenizgumus.springmovieapp.entities.MovieComment;
 import com.candenizgumus.springmovieapp.mappers.MovieMapper;
 import com.candenizgumus.springmovieapp.repositories.MovieRepository;
+import com.candenizgumus.springmovieapp.util.DataImpl;
+import com.candenizgumus.springmovieapp.util.data.Root;
 import com.candenizgumus.springmovieapp.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,16 +24,14 @@ import java.util.Optional;
 public class MovieService extends ServiceManager<Movie,Long>
 {
     private final MovieRepository movieRepository;
-    private final KullaniciService kullaniciService;
-    private final MovieCommentService movieCommentService;
+
     private final GenreService genreService;
 
-    public MovieService(MovieRepository movieRepository, KullaniciService kullaniciService, MovieCommentService movieCommentService, GenreService genreService)
+    public MovieService(MovieRepository movieRepository, GenreService genreService)
     {
         super(movieRepository);
         this.movieRepository = movieRepository;
-        this.kullaniciService = kullaniciService;
-        this.movieCommentService = movieCommentService;
+
         this.genreService = genreService;
     }
 
@@ -70,5 +72,36 @@ public class MovieService extends ServiceManager<Movie,Long>
            movieFindAllDtoList.add( MovieMapper.INSTANCE.movieFindAllDtoToMovie(movie));
         }
         return movieFindAllDtoList;
+    }
+
+    public void addMoviesToDatabaseFromAPI(){ //TODO tür varsa yeni tür yaratmasın bunu nasıl engelelyecez
+        DataImpl data = new DataImpl();
+        Root[] movies = data.saveMoviesFromTvMaze();
+
+
+
+        for (Root movie : movies)
+        {
+            List<Genre> genreList = new ArrayList<>();
+
+            for (String genre : movie.genres)
+            {
+                genreList.add(Genre.builder().name(genre).build());
+            }
+            movieRepository.save(
+                    Movie.builder()
+
+                            .language(movie.language)
+                            .image(movie.image.medium)
+                            .name(movie.name)
+                            .country(movie.network != null ? movie.network.country.name : "Bilinmiyor")
+                            .rating(movie.rating.average)
+                            .summary(movie.summary)
+                            .premiered(LocalDate.parse(movie.premiered)) //burada hata olabilir
+                            .url(movie.url)
+                            .genre(genreList)
+                            .build()
+            );
+        }
     }
 }

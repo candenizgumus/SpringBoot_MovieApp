@@ -21,6 +21,14 @@ public class MovieController
 {
     private final MovieService movieService;
 
+    @PostMapping("addMoviesToDatabaseFromAPI")
+    @CrossOrigin("*")
+    public ResponseEntity<String> saveDto()
+    {
+        movieService.addMoviesToDatabaseFromAPI();
+        return ResponseEntity.ok("Ekleme Basarili");
+    }
+
 
     @PostMapping(EndPoints.SAVEDTO)
     @CrossOrigin("*")
