@@ -22,4 +22,6 @@ public class Genre
     private String name;
     @ManyToMany(mappedBy = "genre")
     private List<Movie> movies;
+    @ManyToMany(mappedBy = "favgenre")
+    private List<Kullanici> kullanici;
 }

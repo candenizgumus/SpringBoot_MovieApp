@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler
 {
-    @ExceptionHandler(DemoException.class)
-    public ResponseEntity<ErrorMessage> handleDemoException(DemoException ex){
+    @ExceptionHandler(MovieAppException.class)
+    public ResponseEntity<ErrorMessage> handleDemoException(MovieAppException ex){
         ErrorType errorType = ex.getErrorType();
         return new ResponseEntity(createErrorMessage(ex),errorType.getStatus());
     }
 
-    private ErrorMessage createErrorMessage(DemoException ex)
+    private ErrorMessage createErrorMessage(MovieAppException ex)
     {
        return ErrorMessage.builder().code(ex.getErrorType().getCode()).message(ex.getMessage()).build();
     }

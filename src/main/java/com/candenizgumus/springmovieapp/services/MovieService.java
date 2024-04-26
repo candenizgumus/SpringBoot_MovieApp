@@ -1,24 +1,20 @@
 package com.candenizgumus.springmovieapp.services;
 
-import com.candenizgumus.springmovieapp.dto.request.MovieCommentSaveDto;
 import com.candenizgumus.springmovieapp.dto.request.MovieSaveDto;
 import com.candenizgumus.springmovieapp.dto.response.MovieFindAllDto;
 import com.candenizgumus.springmovieapp.entities.Genre;
-import com.candenizgumus.springmovieapp.entities.Kullanici;
 import com.candenizgumus.springmovieapp.entities.Movie;
-import com.candenizgumus.springmovieapp.entities.MovieComment;
+import com.candenizgumus.springmovieapp.exceptions.MovieAppException;
+import com.candenizgumus.springmovieapp.exceptions.ErrorType;
 import com.candenizgumus.springmovieapp.mappers.MovieMapper;
 import com.candenizgumus.springmovieapp.repositories.MovieRepository;
-import com.candenizgumus.springmovieapp.util.DataImpl;
-import com.candenizgumus.springmovieapp.util.data.Root;
 import com.candenizgumus.springmovieapp.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService extends ServiceManager<Movie,Long>
@@ -74,34 +70,9 @@ public class MovieService extends ServiceManager<Movie,Long>
         return movieFindAllDtoList;
     }
 
-    public void addMoviesToDatabaseFromAPI(){ //TODO tür varsa yeni tür yaratmasın bunu nasıl engelelyecez
-        DataImpl data = new DataImpl();
-        Root[] movies = data.saveMoviesFromTvMaze();
+    public List<Movie> findAllById(List<Long> ids){
+      return   ids.stream().map(id-> findById(id).orElseThrow(()->new MovieAppException(ErrorType.MOVIE_NOT_FOUND))).collect(Collectors.toList());
 
-
-
-        for (Root movie : movies)
-        {
-            List<Genre> genreList = new ArrayList<>();
-
-            for (String genre : movie.genres)
-            {
-                genreList.add(Genre.builder().name(genre).build());
-            }
-            movieRepository.save(
-                    Movie.builder()
-
-                            .language(movie.language)
-                            .image(movie.image.medium)
-                            .name(movie.name)
-                            .country(movie.network != null ? movie.network.country.name : "Bilinmiyor")
-                            .rating(movie.rating.average)
-                            .summary(movie.summary)
-                            .premiered(LocalDate.parse(movie.premiered)) //burada hata olabilir
-                            .url(movie.url)
-                            .genre(genreList)
-                            .build()
-            );
-        }
     }
+
 }

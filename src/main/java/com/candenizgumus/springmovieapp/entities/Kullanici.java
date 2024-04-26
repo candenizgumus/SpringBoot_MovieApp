@@ -29,10 +29,10 @@ public class Kullanici {
     @Column(length = 50)
     private String password;
 
-    @ManyToMany(mappedBy = "kullanici",cascade = CascadeType.ALL)
+    @ManyToMany()
     private List<Movie> favmovie;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     private List<Genre> favgenre;
-    @OneToMany(mappedBy = "kullanici",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "kullanici",cascade = CascadeType.PERSIST)
     private List<MovieComment> comment;
 }
