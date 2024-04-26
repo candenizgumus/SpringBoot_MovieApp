@@ -7,7 +7,7 @@ import com.candenizgumus.springmovieapp.entities.MovieComment;
 import java.time.LocalDate;
 import java.util.List;
 
-public record MovieFindAllDto(Long id, String language, String image, String name, String country, String rating, String summary, LocalDate premiered, String url )
+public record MovieFindAllDto(Long id, String language, String image, String name, String country, double rating, String summary, LocalDate premiered, String url,List<GenreFindAllDto> genre )
 {
     //, List<Genre> genre, List<MovieComment> comment, List<Kullanici> kullanici //içinden silinenler
 }

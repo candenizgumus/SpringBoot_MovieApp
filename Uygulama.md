@@ -33,3 +33,5 @@
 Bu apiye istek atarken herhangi bir metod kullanabilirsiniz. HttpUrlConnection
 Gson kullanarak dönüşüm yaptırabilirsiniz.
 Bu DataImpl sınıfı spring projesi ayağa kalkarken yüklenmeli ve içindeki metodu tetiklemelidir.
+
+## Soru 4. Tüm filmleri listeleyecek endpointi yazınız.
