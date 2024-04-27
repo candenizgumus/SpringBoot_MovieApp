@@ -28,4 +28,9 @@ public interface MovieRepository extends JpaRepository<Movie,Long>
     List<Object[]> findByRatingAndCount(double rating);
 
     Long countByRating(double rating);
+
+    List<Movie> findAllByName(String name);
+
+    @Query("SELECT m.country,COUNT(m) FROM Movie m GROUP BY m.country")
+    List<Object> findMoviesByCountry();
 }

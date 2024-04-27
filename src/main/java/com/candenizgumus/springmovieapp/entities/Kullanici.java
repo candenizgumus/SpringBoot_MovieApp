@@ -2,10 +2,14 @@ package com.candenizgumus.springmovieapp.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -14,6 +18,7 @@ import java.util.List;
 @Builder
 @Data
 @Entity
+@Validated
 @Table(name = "tbluser")
 public class Kullanici {
     @Id
@@ -24,8 +29,11 @@ public class Kullanici {
     @Column(length = 50)
     private String surname;
     @Column(length = 50)
+    @Email
     private String email;
     @Column(length = 50)
+    @Size(min = 10, max = 200, message
+            = "Phone no min 10 karakter olmalı")
     private String phone;
     @Column(length = 50)
     private String password;

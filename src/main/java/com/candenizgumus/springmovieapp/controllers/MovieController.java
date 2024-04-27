@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -90,5 +91,17 @@ public class MovieController
     @GetMapping("/countbyrating")
     public ResponseEntity<Long> countByRating(double rating){
         return ResponseEntity.ok(movieService.countByRating(rating));
+    }
+
+    @GetMapping("/findmoviesbyname") //Bu metod postman ile çalışıyor
+    public ResponseEntity<List<List<Movie>>> findAllByName(@RequestBody List<String> movieNames)
+    {
+
+        return ResponseEntity.ok(movieService.findAllByName(movieNames));
+    }
+
+    @GetMapping("/findmoviesbycountry")
+    public ResponseEntity<List<Object>> findMoviesByCountry(){
+        return ResponseEntity.ok(movieService.findMoviesByCountry());
     }
 }

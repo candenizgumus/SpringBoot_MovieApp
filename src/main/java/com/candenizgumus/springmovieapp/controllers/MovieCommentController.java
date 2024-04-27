@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,5 +35,20 @@ public class MovieCommentController
     public ResponseEntity<List<MovieComment>> findAll()
     {
         return ResponseEntity.ok(movieCommentService.findAll());
+    }
+
+    @GetMapping("/findmoviecommentsbymovie")
+    public ResponseEntity<List<MovieComment>> findAllByMovie_Id(Long movieId){
+        return ResponseEntity.ok(movieCommentService.findAllByMovie_Id(movieId));
+    }
+
+    @GetMapping("/findmoviesbydatebetween")
+    public ResponseEntity<List<MovieComment>> findAllByMovie_IdAndDateBetween(Long movieId, LocalDate start, LocalDate finish){
+        return ResponseEntity.ok(movieCommentService.findAllByMovie_IdAndDateBetween(movieId,start,finish));
+    }
+
+    @GetMapping("findbycontentgreaterthan")
+    public ResponseEntity<List<MovieComment>> findAllByContentGreaterThan(int adet){
+        return ResponseEntity.ok(movieCommentService.findAllByContentGreaterThan(adet));
     }
 }

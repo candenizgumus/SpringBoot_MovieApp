@@ -11,6 +11,7 @@ import com.candenizgumus.springmovieapp.exceptions.MovieAppException;
 import com.candenizgumus.springmovieapp.mappers.KullaniciMapper;
 import com.candenizgumus.springmovieapp.repositories.KullaniciRepository;
 import com.candenizgumus.springmovieapp.utility.ServiceManager;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class KullaniciService extends ServiceManager<Kullanici,Long>
 {
     private final KullaniciRepository kullaniciRepository;
+
 
     public KullaniciService(KullaniciRepository kullaniciRepository)
     {
@@ -58,7 +60,7 @@ public class KullaniciService extends ServiceManager<Kullanici,Long>
     }
 
 
-    public KullaniciRegisterResponseDto register(KullaniciRegisterDto dto)
+    public KullaniciRegisterResponseDto register(  KullaniciRegisterDto dto)
     {
         if (!dto.password().equals(dto.repassword()))
         {

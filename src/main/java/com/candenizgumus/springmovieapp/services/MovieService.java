@@ -6,6 +6,7 @@ import com.candenizgumus.springmovieapp.dto.response.MovieFindByRatingAndCountDt
 import com.candenizgumus.springmovieapp.entities.Genre;
 import com.candenizgumus.springmovieapp.entities.Kullanici;
 import com.candenizgumus.springmovieapp.entities.Movie;
+import com.candenizgumus.springmovieapp.entities.MovieComment;
 import com.candenizgumus.springmovieapp.exceptions.MovieAppException;
 import com.candenizgumus.springmovieapp.exceptions.ErrorType;
 import com.candenizgumus.springmovieapp.mappers.MovieMapper;
@@ -21,10 +22,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class MovieService extends ServiceManager<Movie,Long>
+public class MovieService extends ServiceManager<Movie, Long>
 {
     private final MovieRepository movieRepository;
-private final KullaniciService kullaniciService;
+    private final KullaniciService kullaniciService;
     private final GenreService genreService;
 
     public MovieService(MovieRepository movieRepository, KullaniciService kullaniciService, GenreService genreService)
@@ -70,22 +71,25 @@ private final KullaniciService kullaniciService;
         List<MovieFindAllDto> movieFindAllDtoList = new ArrayList<>();
         for (Movie movie : movies)
         {
-           movieFindAllDtoList.add( MovieMapper.INSTANCE.movieFindAllDtoToMovie(movie));
+            movieFindAllDtoList.add(MovieMapper.INSTANCE.movieFindAllDtoToMovie(movie));
         }
         return movieFindAllDtoList;
     }
 
-    public List<Movie> findAllById(List<Long> ids){
-      return   ids.stream().map(id-> findById(id).orElseThrow(()->new MovieAppException(ErrorType.MOVIE_NOT_FOUND))).collect(Collectors.toList());
+    public List<Movie> findAllById(List<Long> ids)
+    {
+        return ids.stream().map(id -> findById(id).orElseThrow(() -> new MovieAppException(ErrorType.MOVIE_NOT_FOUND))).collect(Collectors.toList());
 
     }
 
-    public List<Movie> findAllByRatingGreaterThan(double value){
-        return   movieRepository.findAllByRatingGreaterThan(value);
+    public List<Movie> findAllByRatingGreaterThan(double value)
+    {
+        return movieRepository.findAllByRatingGreaterThan(value);
 
     }
 
-    public List<MovieFindAllDto> findByGenre(Long kullaniciId){
+    public List<MovieFindAllDto> findByGenre(Long kullaniciId)
+    {
         Kullanici kullanici = kullaniciService.findById(kullaniciId).orElseThrow(() -> new MovieAppException(ErrorType.KULLANICI_NOT_FOUND));
         List<Genre> favgenreList = kullanici.getFavgenre();
         List<Movie> allMovies = movieRepository.findAll();
@@ -109,25 +113,48 @@ private final KullaniciService kullaniciService;
 
     }
 
-    public List<Movie> findAllByPremieredBefore(LocalDate tarih){
+    public List<Movie> findAllByPremieredBefore(LocalDate tarih)
+    {
         return movieRepository.findAllByPremieredBefore(tarih);
     }
 
-    public List<MovieFindByRatingAndCountDto> findByRatingAndCount(double rating) {
+    public List<MovieFindByRatingAndCountDto> findByRatingAndCount(double rating)
+    {
         List<Object[]> movies = movieRepository.findByRatingAndCount(rating);
         List<MovieFindByRatingAndCountDto> movieFindByRatingAndCountDtoList = new ArrayList<>();
-        for (Object[] movie : movies) {
+        for (Object[] movie : movies)
+        {
             Number movieRating = (Number) movie[1];
             Number movieCount = (Number) movie[0];
-            MovieFindByRatingAndCountDto movieFindByRatingAndCountDto = new MovieFindByRatingAndCountDto( movieCount.longValue(),movieRating.doubleValue());
+            MovieFindByRatingAndCountDto movieFindByRatingAndCountDto = new MovieFindByRatingAndCountDto(movieCount.longValue(), movieRating.doubleValue());
             movieFindByRatingAndCountDtoList.add(movieFindByRatingAndCountDto);
         }
         return movieFindByRatingAndCountDtoList;
     }
 
-    public Long countByRating(double rating){
+    public Long countByRating(double rating)
+    {
         return movieRepository.countByRating(rating);
     }
+
+    public List<List<Movie>> findAllByName(List<String> movieNames)
+    {
+        List<List<Movie>> movieList = new ArrayList<>();
+        for (String movieName : movieNames)
+        {
+            List<Movie> allByName = movieRepository.findAllByName(movieName);
+            if (!allByName.isEmpty())
+            {
+                movieList.add(allByName);
+            }
+        }
+        return movieList;
+    }
+
+    public List<Object> findMoviesByCountry(){
+        return movieRepository.findMoviesByCountry();
+    }
+
 
 
 
